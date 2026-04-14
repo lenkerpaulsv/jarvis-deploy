@@ -1,0 +1,33 @@
+# jarvis-deploy configuration example
+# Copy this file to deploy.properties and fill in your values.
+# Format: env.<environment-name>.<field>=<value>
+
+# ─── Staging Environment ─────────────────────────────────────────────────────
+env.staging.host=staging.example.com
+env.staging.port=22
+env.staging.deployPath=/opt/myapp/staging
+env.staging.user=deploy
+
+# Optional environment variables injected at deploy time
+env.staging.var.JAVA_OPTS=-Xmx512m -Xms256m
+env.staging.var.APP_ENV=staging
+env.staging.var.LOG_LEVEL=DEBUG
+
+# ─── Production Environment ──────────────────────────────────────────────────
+env.production.host=prod.example.com
+env.production.port=22
+env.production.deployPath=/opt/myapp/production
+env.production.user=deploy
+
+env.production.var.JAVA_OPTS=-Xmx2g -Xms1g
+env.production.var.APP_ENV=production
+env.production.var.LOG_LEVEL=WARN
+
+# ─── Local Environment ───────────────────────────────────────────────────────
+env.local.host=localhost
+env.local.port=22
+env.local.deployPath=/tmp/myapp/local
+env.local.user=localuser
+
+env.local.var.APP_ENV=local
+env.local.var.LOG_LEVEL=DEBUG
