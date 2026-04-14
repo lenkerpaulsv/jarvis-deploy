@@ -1,0 +1,13 @@
+# Java
+
+*.class
+*.jar
+target/
+*.war
+*.iml
+out/
+*.log
+.idea/
+bin/
+build/
+.gradle/
