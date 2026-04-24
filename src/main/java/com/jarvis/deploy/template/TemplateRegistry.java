@@ -28,6 +28,20 @@ public class TemplateRegistry {
     }
 
     /**
+     * Registers a template only if no template with the same name is already registered.
+     *
+     * @param template the template to register
+     * @return true if the template was registered, false if a template with that name already exists
+     * @throws IllegalArgumentException if template is null
+     */
+    public boolean registerIfAbsent(DeploymentTemplate template) {
+        if (template == null) {
+            throw new IllegalArgumentException("Template must not be null");
+        }
+        return templates.putIfAbsent(template.getName(), template) == null;
+    }
+
+    /**
      * Retrieves a template by name.
      *
      * @param name the template name
