@@ -59,6 +59,15 @@ public class DeploymentPipeline {
         return stages.get(currentStageIndex);
     }
 
+    /**
+     * Returns the number of stages remaining to be executed, including the current stage.
+     *
+     * @return the count of remaining stages, or 0 if the pipeline is complete
+     */
+    public int remainingStageCount() {
+        return Math.max(0, stages.size() - currentStageIndex);
+    }
+
     @Override
     public String toString() {
         return "DeploymentPipeline{id='" + pipelineId + "', env='" + environment +
