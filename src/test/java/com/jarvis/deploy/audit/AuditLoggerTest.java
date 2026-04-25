@@ -80,4 +80,19 @@ class AuditLoggerTest {
         assertEquals(a, b);
         assertEquals(a.hashCode(), b.hashCode());
     }
+
+    @Test
+    void testLogPreservesTimestamp() throws IOException {
+        LocalDateTime timestamp = LocalDateTime.of(2024, 6, 1, 10, 0);
+        AuditEntry entry = new AuditEntry("DEPLOY", "staging", "1.2.3", "alice", timestamp);
+        auditLogger.log(entry);
+
+        List<String> lines = auditLogger.readAll();
+        assertEquals(1, lines.size());
+        // Verify the timestamp is recorded in the log line
+        assertTrue(lines.get(0).contains("2024-06-01"),
+                "Log entry should contain the date portion of the timestamp");
+        assertTrue(lines.get(0).contains("10:00"),
+                "Log entry should contain the time portion of the timestamp");
+    }
 }
