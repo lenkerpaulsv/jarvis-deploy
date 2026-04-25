@@ -42,6 +42,16 @@ class DependencyResolverTest {
     }
 
     @Test
+    void resolveReturnsViolationWithCorrectDependentAndDependency() {
+        resolver.registerDependency(new DeploymentDependency("app-a", "app-b", "1.0.0", true));
+        List<DependencyViolation> violations = resolver.resolve("app-a");
+        assertEquals(1, violations.size());
+        DependencyViolation violation = violations.get(0);
+        assertEquals("app-a", violation.getDependent());
+        assertEquals("app-b", violation.getDependency());
+    }
+
+    @Test
     void isSatisfiedReturnsTrueWhenNoStrictViolations() {
         resolver.registerDependency(new DeploymentDependency("app-a", "app-b", "2.0.0", false));
         // app-b not deployed but dependency is non-strict
