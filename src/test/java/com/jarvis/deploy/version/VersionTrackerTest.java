@@ -80,4 +80,16 @@ class VersionTrackerTest {
     void testRecordBlankVersionThrows() {
         assertThrows(IllegalArgumentException.class, () -> tracker.record("prod", "", "alice"));
     }
+
+    @Test
+    void testRecordBlankDeployedByThrows() {
+        assertThrows(IllegalArgumentException.class, () -> tracker.record("prod", "1.0.0", ""));
+    }
+
+    @Test
+    void testGetHistoryReturnsEmptyForUnknownEnvironment() {
+        List<VersionEntry> history = tracker.getHistory("unknown");
+        assertNotNull(history);
+        assertTrue(history.isEmpty());
+    }
 }
