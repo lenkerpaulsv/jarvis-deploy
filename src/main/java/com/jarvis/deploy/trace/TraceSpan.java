@@ -28,6 +28,12 @@ public class TraceSpan {
         if (finished) {
             throw new IllegalStateException("Span '" + operation + "' for deployment '" + deploymentId + "' is already finished");
         }
+        if (endTime == null) {
+            throw new IllegalArgumentException("endTime must not be null");
+        }
+        if (endTime.isBefore(startTime)) {
+            throw new IllegalArgumentException("endTime '" + endTime + "' must not be before startTime '" + startTime + "'");
+        }
         this.endTime = endTime;
         this.metadata = metadata != null ? Collections.unmodifiableMap(new HashMap<>(metadata)) : Collections.emptyMap();
         this.finished = true;
