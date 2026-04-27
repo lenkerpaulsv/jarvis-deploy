@@ -45,6 +45,24 @@ public class ResumeRecord {
         return createdAt;
     }
 
+    /**
+     * Returns whether this record has ever had a resume attempt.
+     *
+     * @return true if at least one resume attempt has been recorded
+     */
+    public boolean hasBeenAttempted() {
+        return this.attempts > 0;
+    }
+
+    /**
+     * Records a new resume attempt by incrementing the attempt counter
+     * and updating the lastResumedAt timestamp to the current time.
+     */
+    public void recordAttempt() {
+        this.attempts++;
+        this.lastResumedAt = Instant.now();
+    }
+
     @Override
     public String toString() {
         return "ResumeRecord{" +
